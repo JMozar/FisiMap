@@ -2,9 +2,9 @@
  session_start();// la sesion se esta manteniendo activa
  $lista=$_SESSION['LISTA'];
  $lista1=$_SESSION['LISTA1'];
- require_once '../../dao/AreaDao.php';
- require_once '../../dao/CursoDao.php';
- require_once '../../util/ConexionBD.php';
+ //require_once '../../dao/AreaDao.php';
+ //require_once '../../dao/CursoDao.php';
+ //require_once '../../util/ConexionBD.php';
 ?>
 
 

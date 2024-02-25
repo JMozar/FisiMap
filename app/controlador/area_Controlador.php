@@ -115,3 +115,10 @@ case 2: {//eliminar;
 }
 
 ?>
+
+  case 1: {
+    
+    header('Location:../vista/frm_areas.php');
+
+    break;}
+}

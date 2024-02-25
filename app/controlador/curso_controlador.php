@@ -2,7 +2,6 @@
 
 session_start();//me permite  iniciar una  sesion
 require_once "../../util/ConexionBD.php";
-
 require_once '../../dao/CursoDao.php';
 require_once '../../bean/CursoBean.php';
 
@@ -18,6 +17,7 @@ switch($op)
 
     $lista1=$objCursoDao->ListarCod();
     $_SESSION['LISTA1']=$lista1; // estoy guardado en  SEsion;
+  case 1: {
     
     header('Location:../vista/frm_cursos.php');
 
@@ -143,3 +143,4 @@ switch($op)
   }
 
 ?>
+}

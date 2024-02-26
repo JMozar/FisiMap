@@ -1,10 +1,10 @@
 <?php 
- //session_start();// la sesion se esta manteniendo activa
- //$lista=$_SESSION['LISTA'];
- //$lista1=$_SESSION['LISTA1'];
- //require_once '../../dao/AreaDao.php';
- //require_once '../../dao/CursoDao.php';
- //require_once '../../util/ConexionBD.php';
+ session_start();// la sesion se esta manteniendo activa
+ $lista=$_SESSION['LISTA'];
+ $lista1=$_SESSION['LISTA1'];
+ require_once '../../dao/AreaDao.php';
+ require_once '../../dao/CursoDao.php';
+ require_once '../../util/ConexionBD.php';
 ?>
 
 <!DOCTYPE html>
@@ -120,7 +120,7 @@
                 <td>Acción</td>
             </tr>
     <?php
-    /*
+    
             foreach ($lista as $reg) {
         echo '<tr id="fila">';
         echo '<td>' . $reg['codigo_curso'] . '</td>';
@@ -153,7 +153,7 @@
              
         echo '</tr>';
     }
-    */
+    
     ?> 
             
         </center>

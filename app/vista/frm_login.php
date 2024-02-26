@@ -1,9 +1,9 @@
 <?php 
  session_start();// la sesion se esta manteniendo activa
 
- //require_once '../../dao/AreaDao.php';
- //require_once '../../dao/CursoDao.php';
- //require_once '../../util/ConexionBD.php';
+ require_once '../../dao/AreaDao.php';
+ require_once '../../dao/CursoDao.php';
+ require_once '../../util/ConexionBD.php';
 
 ?>
 

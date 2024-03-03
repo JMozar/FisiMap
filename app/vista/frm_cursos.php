@@ -117,7 +117,8 @@
                 <td>Día</td>
                 <td colspan="2">Profesor</td>
                 <td>id_area</td>
-                <td>Acción</td>
+                <td>Editar</td>
+                <td>Eliminar</td>
             </tr>
     <?php
     
@@ -417,8 +418,11 @@
     </aside>
     </div>
 </form>
-    <footer>
+<footer>
+    <div class="pie">
         Mapa Interactivo de la fisi
-    </footer>
+    </div>    
+</footer>
+
 </body>
 </html>

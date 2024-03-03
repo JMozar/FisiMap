@@ -109,4 +109,17 @@ input[type="password"] {
 }
 
 /*FIN FORMULARIO*/
-
+footer {
+    background-color: black;
+    color: white;
+    height: 3%;
+    width: 100%;
+    padding-left: 1px;
+    position: fixed;
+    bottom: 0;
+}
+.pie{
+    position: absolute;
+    top: 50%;
+    transform: translate(0%, -50%); /* Centra vertical */
+}

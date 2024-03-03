@@ -113,7 +113,8 @@
                 <td>Piso</td>
                 <td>Aforo</td>
                 <td>Notas</td>
-                <td>Acción</td>
+                <td>Editar</td>
+                <td>Eliminar</td>
             </tr>
 <?php  
 
@@ -311,8 +312,10 @@
 </aside>
 </div>
 </form>
-    <footer>
+<footer>
+    <div class="pie">
         Mapa Interactivo de la fisi
-    </footer>
+    </div>    
+</footer>
 </body>
 </html>

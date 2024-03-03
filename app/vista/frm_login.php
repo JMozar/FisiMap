@@ -39,7 +39,7 @@
         <div id="cabecera">
             <img src="../../public/img/logo-fisi.png" alt="Logo de la FISI">
             <h3>Mapa Interactivo de la FISI</h3>
-            <button><img src="../../public/img/usuario.png" alt="imagen">Acceder</button>   
+             <!--<button><img src="../../public/img/usuario.png" alt="imagen">Acceder</button> -->  
         </div>
     </header>
 
@@ -47,6 +47,11 @@
      <!-- Login -->
      <div class="container_">
         <!--<form action="procesar_login.php" method="post">-->
+        <div style="width: 100%; text-align: center;">
+            <label style="font-size: 2rem;">Login</label> <br>
+            <label style="font-size: 1.5rem;">Administración</label> <br>
+        </div>
+        
         <form action="../../dao/LoginDao.php" method="post">
 
             <img src="../../public/img/unmsm.png" alt="Imagen UNMSM">
@@ -58,7 +63,7 @@
                 <label for="contrasena">Contraseña:</label> <br>
                 <input type="password" id="contrasena" name="contrasena" placeholder="********"  required>
             </div>
-            <div class="recor">
+            <div class="recor" style="width: 90%; text-align: center;">
                 <input type="checkbox" id="recordar" name="recordar">
                 <span for="recordar">Recordar cuenta</span>
             </div>
@@ -68,10 +73,17 @@
             <!--<input type="submit" value="Entrar" id="btn_enviar" >-->  
             <a href="frm_mapa.php" style="display:block" >Volver</a>
             </div>
-        </form>        
+        </form>
+                
      </div>
      <script src="../../public/js/login.js"></script>
+
 </body>
+<footer>
+    <div class="pie">
+        Mapa Interactivo de la fisi
+    </div>    
+</footer>
 <script type="text/javascript" src="../../public/js/mapa_config.js"></script> 
 
 

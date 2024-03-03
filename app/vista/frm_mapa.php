@@ -1,7 +1,7 @@
 <?php 
  session_start();// la sesion se esta manteniendo activa
 
- $lista=$_SESSION['LISTA'];
+ //$lista=$_SESSION['LISTA'];
  require_once '../../dao/AreaDao.php';
  require_once '../../util/ConexionBD.php';
 

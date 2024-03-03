@@ -43,7 +43,9 @@ switch($op)
       $objCursoDao = new CursoDao();
       $lista = $objCursoDao->ListarCursos();
       $_SESSION['LISTA'] = $lista;
+      //echo '<script>alert("¡Eliminado correctamente!");</script>';
       header('Location:../vista/frm_cursos.php');
+      //echo '<script>window.location.href = "../vista/frm_cursos.php?eliminado=1";</script>';
       break;
   }
 
@@ -79,6 +81,7 @@ switch($op)
 
     if ($res) {
         $response["estado"] = "Curso editado correctamente";
+
     } else {
         $response["estado"] = "Error al editar el curso";
     }
@@ -89,11 +92,12 @@ switch($op)
       $lista=$objCursoDao->ListarCursos();
       $_SESSION['LISTA']=$lista; // estoy guardado en  SEsion;
       header('Location:../vista/frm_cursos.php');
-
+      
     break;}
 
     case 4: // Agregar un curso
       {
+        
       $objCursoDao = new CursoDao();
   
       // Obtén los valores del formulario

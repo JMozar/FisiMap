@@ -5,6 +5,9 @@
  require_once '../../dao/AreaDao.php';
  require_once '../../dao/CursoDao.php';
  require_once '../../util/ConexionBD.php';
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -18,6 +21,13 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous" />
         <script>
+            function mostrarAlerta() {
+        alert("¡Curso editado correctamente!");
+    }
+    
+    function alertaDespuesDeEnviar() {
+        alert("¡Curso agregado correctamente!");
+    }
 
         function eliminarCookies() {
             document.cookie = 'recordar_usuario=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
@@ -146,11 +156,18 @@
             'data-profesor-ape="' . $reg['profesor_ape'] . '" ' .
             'data-profesor-nomb="' . $reg['profesor_nomb'] . '"><img src="/public/img/editar.png" alt="Editar"></button>';
             echo '<td>' .
-            '<form method="POST" action="../controlador/curso_controlador.php?op=2" onsubmit="return confirm(\'¿Estás seguro de que deseas eliminar este curso?\');">' .
-            '<input type="hidden" name="codigo_curso" value="' . $reg['codigo_curso'] . '">' .
-            '<button type="submit" class="boton-eliminar"> <img src="/public/img/eliminar.png" alt="Eliminar"></button>' .
-            '</form>' .
-            '</td>';
+        '<form method="POST" action="../controlador/curso_controlador.php?op=2" onsubmit="return confirm(\'¿Estás seguro de que deseas eliminar este curso?\') && mostrarMensaje();">' .
+        '<input type="hidden" name="codigo_curso" value="' . $reg['codigo_curso'] . '">' .
+        '<button type="submit" class="boton-eliminar"> <img src="/public/img/eliminar.png" alt="Eliminar"></button>' .
+        '</form>' .
+        '</td>';
+
+// Agregar el script de JavaScript para mostrar el mensaje después de la confirmación
+echo '<script>';
+echo 'function mostrarMensaje() {';
+echo '    alert("¡Curso eliminado exitosamente!");';
+echo '}';
+echo '</script>';
              
         echo '</tr>';
     }
@@ -280,7 +297,7 @@
         </div>
   
         <br>
-        <button type="submit" class="btn btn-primary" style="background-color: #68141C;position: relative;left: 42%; width:100px;bottom:10px" name="btnGuardar" value="ok" >Guardar</button>
+        <button type="submit" class="btn btn-primary" style="background-color: #68141C;position: relative;left: 42%; width:100px;bottom:10px" name="btnGuardar" value="ok" onclick="mostrarAlerta()">Guardar</button>
       </div>
     </div>
   </div>
@@ -289,7 +306,7 @@
     </div>
 </form>
 <!-- Modal para agregar áreas -->
-<form method="POST" action="../controlador/curso_controlador.php?op=4">
+<form onsubmit="return alertaDespuesDeEnviar();" method="POST" action="../controlador/curso_controlador.php?op=4">
 <div class="modal" id="modalAgregarArea" >
   <div class="modal-dialog">
     <div class="modal-content">
@@ -426,3 +443,5 @@
 
 </body>
 </html>
+
+

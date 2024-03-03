@@ -5,6 +5,9 @@
  require_once '../../dao/AreaDao.php';
  require_once '../../dao/CursoDao.php';
  require_once '../../util/ConexionBD.php';
+
+
+
 ?>
 
 
@@ -19,6 +22,13 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous" />
         <script>
+            function mostrarAlerta() {
+        alert("¡Área editada correctamente!");
+    }
+
+    function alertaDespuesDeEnviar() {
+        alert("¡Curso agregado correctamente!");
+    }
 
         function eliminarCookies() {
             document.cookie = 'recordar_usuario=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
@@ -35,7 +45,7 @@
         window.location.href = "../controlador/usu_controlador.php?accion=navegar_a_login";
 
         }
-        function cargarD(){
+        function cargarD(){ 
             window.location.href = "../controlador/curso_Controlador.php?op=5";
         }
         function abrirModal() {
@@ -136,11 +146,18 @@
             'data-aforo="' . $reg['aforo'] . '" ' .
             'data-notas="' . $reg['notas'] . '"><img src="/public/img/editar.png" alt="Editar"></button>';
         echo '<td>' .
-        '<form method="POST" action="../controlador/area_controlador.php?op=2" onsubmit="return confirm(\'¿Estás seguro de que deseas eliminar este curso?\');">' .
+        '<form method="POST" action="../controlador/area_controlador.php?op=2" onsubmit="return confirm(\'¿Estás seguro de que deseas eliminar esta área?\') && mostrarMensaje();">' .
         '<input type="hidden" name="codigo_area" value="' . $reg['codigo_area'] . '">' .
         '<button type="submit" class="boton-eliminar"> <img src="/public/img/eliminar.png" alt="Eliminar"></button>' .
         '</form>' .
         '</td>';
+    // Agregar el script de JavaScript para mostrar el mensaje después de la confirmación
+echo '<script>';
+echo 'function mostrarMensaje() {';
+echo '    alert("¡Área eliminada exitosamente!");';
+echo '}';
+echo '</script>';
+
         echo '</tr>';
     }
 
@@ -224,7 +241,7 @@
     <br><br>
 
  
-                    <button type="submit" class="btn btn-primary" style="background-color: #68141C;position: relative;left: 44%;" name="btnagregar" value="ok" onclick="GuardarA()">Guardar</button>
+                    <button type="submit" class="btn btn-primary" style="background-color: #68141C;position: relative;left: 44%;" name="btnagregar" value="ok" onclick="mostrarAlerta()">Guardar</button>
                 </div>
             </div>
         </div>
@@ -234,7 +251,7 @@
 </form>
 
 <!-- Modal para agregar áreas -->
-<form method="POST" action="../controlador/area_Controlador.php?op=4" id=areas>
+<form onsubmit="return alertaDespuesDeEnviar();" method="POST" action="../controlador/area_Controlador.php?op=4" id=areas>
     <div class="modal" id="modalAgregarArea">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -304,7 +321,7 @@
    
                         
  
-                    <button type="submit" class="btn btn-primary" style="background-color: #68141C;position: relative;left: 44%;" name="btnagregar" value="ok" onclick="cargarD()">Listo</button>
+                    <button type="submit" class="btn btn-primary" style="background-color: #68141C;position: relative;left: 44%;" name="btnagregar" value="ok" onclick="AlertaGuarda()">Listo</button>
                     </div>      </div>
             </div>
         </div>

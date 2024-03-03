@@ -152,7 +152,7 @@ class AreaDao
     public  function  cursosArea($codigo)
     {
        try {
-       $sql="select *   from   curso where codigo_area='$codigo'";
+       $sql="select *   from   curso where codigo_area='$codigo' AND estado='A'";
         $objc=new ConexionBD();
         $cn= $objc->getConexionBD();
        $rs= mysqli_query($cn,$sql);

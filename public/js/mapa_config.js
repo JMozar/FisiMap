@@ -498,13 +498,51 @@ let markers2 = [];
 let markers3 = [];
 
 function removeAllMarkers() {
+    // Elimina todos los marcadores del mapa
     markers1.forEach(markerObj => markerObj.marker.remove());
-    markers1 = [];
     markers2.forEach(markerObj => markerObj.marker.remove());
-    markers2 = [];
     markers3.forEach(markerObj => markerObj.marker.remove());
+
+    // Reinicia los arreglos de marcadores
+    markers1 = [];
+    markers2 = [];
     markers3 = [];
 }
+
+function showMarkersByLayer(layerId) {
+    if (layerId === 1) {
+        markers1.forEach(markerObj => {
+            markerObj.marker.getElement().style.visibility = "visible";
+        });
+        markers2.forEach(markerObj => {
+            markerObj.marker.getElement().style.visibility = "hidden";
+        });
+        markers3.forEach(markerObj => {
+            markerObj.marker.getElement().style.visibility = "hidden";
+        });
+    } else if (layerId === 2) {
+        markers1.forEach(markerObj => {
+            markerObj.marker.getElement().style.visibility = "hidden";
+        });
+        markers2.forEach(markerObj => {
+            markerObj.marker.getElement().style.visibility = "visible";
+        });
+        markers3.forEach(markerObj => {
+            markerObj.marker.getElement().style.visibility = "hidden";
+        });
+    } else if (layerId === 3) {
+        markers1.forEach(markerObj => {
+            markerObj.marker.getElement().style.visibility = "hidden";
+        });
+        markers2.forEach(markerObj => {
+            markerObj.marker.getElement().style.visibility = "hidden";
+        });
+        markers3.forEach(markerObj => {
+            markerObj.marker.getElement().style.visibility = "visible";
+        });
+    }
+}
+
 
 function toggleLayer(layerId) {
     // Oculta todas las capas
@@ -535,13 +573,9 @@ function toggleLayer(layerId) {
     });
 
     // Mostrar los marcadores correspondientes al layerId y ocultar los demás
-    markers1.forEach(markerObj => {
-        if (markerObj.layerId === layerId) {
-            markerObj.marker.addTo(map);
-        } else {
-            markerObj.marker.remove();
-        }
-    });
+    showMarkersByLayer(layerId);
+
+
 }
     
     function colorear_mostrar(codigo){
@@ -1755,22 +1789,12 @@ function mostrarRuta(startNode, endNode, pisoInicio, pisoFin) {
     let graphId1 = 'graph' + pisoInicio;
     let graphId2 = 'graph' + pisoFin;
 
-    console.log("Grafos: ");
-    console.log(graphId1);
-    console.log(graphId2);
-
     // Crear un marcador en el nodo inicial
     let startCoordinates = coordinates[startNode];
     const startMarker = new mapboxgl.Marker({ color: 'green' })
         .setLngLat(startCoordinates)
         .addTo(map);
-    if (pisoInicio === 1) {
-        markers1.push({ marker: startMarker, layerId: pisoInicio });
-    } else if (pisoInicio === 2) {
-        markers2.push({ marker: startMarker, layerId: pisoInicio });
-    } else if (pisoInicio === 3) {
-        markers3.push({ marker: startMarker, layerId: pisoInicio });
-    }
+    markers1.push({ marker: startMarker, layerId: pisoInicio });
     console.log(`Coordenadas del nodo inicial (${startNode}):`, startCoordinates);
 
     if (pisoInicio !== pisoFin) {
@@ -1926,15 +1950,14 @@ function mostrarRuta(startNode, endNode, pisoInicio, pisoFin) {
     const endMarker = new mapboxgl.Marker({ color: 'red' })
         .setLngLat(endCoordinates)
         .addTo(map);
-    if (pisoFin === 1) {
-        markers1.push({ marker: endMarker, layerId: pisoFin });
-    } else if (pisoFin === 2) {
-        markers2.push({ marker: endMarker, layerId: pisoFin });
-    } else if (pisoFin === 3) {
-        markers3.push({ marker: endMarker, layerId: pisoFin });
-    }
+    markers1.push({ marker: endMarker, layerId: pisoFin });
     console.log(`Coordenadas del nodo final (${endNode}):`, endCoordinates);
+
+    console.log("Número de marcadores en markers1:", markers1.length);
+    console.log("Número de marcadores en markers2:", markers2.length);
+    console.log("Número de marcadores en markers3:", markers3.length);
 }
+
 
 
 

@@ -1794,7 +1794,8 @@ function mostrarRuta(startNode, endNode, pisoInicio, pisoFin) {
     const startMarker = new mapboxgl.Marker({ color: 'green' })
         .setLngLat(startCoordinates)
         .addTo(map);
-    markers1.push({ marker: startMarker, layerId: pisoInicio });
+        
+    markers2.push({ marker: startMarker, layerId: pisoInicio });
     console.log(`Coordenadas del nodo inicial (${startNode}):`, startCoordinates);
 
     if (pisoInicio !== pisoFin) {

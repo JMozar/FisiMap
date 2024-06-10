@@ -1808,8 +1808,30 @@ function mostrarRuta(startNode, endNode, pisoInicio, pisoFin) {
     //markers2.push({ marker: startMarker, layerId: pisoInicio });
     console.log(`Coordenadas del nodo inicial (${startNode}):`, startCoordinates);
 
+
+    // Crear un marcador en el nodo final
+    let endCoordinates = coordinates[endNode];
+    const endMarker = new mapboxgl.Marker({ color: 'red' })
+        .setLngLat(endCoordinates)
+        .addTo(map);
+        if(pisoFin==1){
+            markers1.push({ marker: endMarker, layerId: pisoFin });
+        }
+        if(pisoFin==2){
+            markers2.push({ marker: endMarker, layerId: pisoFin });
+        }
+        if(pisoFin==3){
+            markers3.push({ marker: endMarker, layerId: pisoFin });
+        }  
+    //markers1.push({ marker: endMarker, layerId: pisoFin });
+    console.log(`Coordenadas del nodo final (${endNode}):`, endCoordinates);
+
     if (pisoInicio !== pisoFin) {
+
+        endMarker.getElement().style.visibility = "hidden";
+
         var escaleraCerca = escaleraMasCercana(graph, startNode);
+
         console.log("Escalera más cercana:", escaleraCerca);
 
         let result1 = dijkstra(graph, startNode, escaleraCerca);
@@ -1956,22 +1978,7 @@ function mostrarRuta(startNode, endNode, pisoInicio, pisoFin) {
         map.setLayoutProperty(routeId1, 'visibility', 'visible');
     }
 
-    // Crear un marcador en el nodo final
-    let endCoordinates = coordinates[endNode];
-    const endMarker = new mapboxgl.Marker({ color: 'red' })
-        .setLngLat(endCoordinates)
-        .addTo(map);
-        if(pisoFin==1){
-            markers1.push({ marker: endMarker, layerId: pisoFin });
-        }
-        if(pisoFin==2){
-            markers2.push({ marker: endMarker, layerId: pisoFin });
-        }
-        if(pisoFin==3){
-            markers3.push({ marker: endMarker, layerId: pisoFin });
-        }  
-    //markers1.push({ marker: endMarker, layerId: pisoFin });
-    console.log(`Coordenadas del nodo final (${endNode}):`, endCoordinates);
+    
 
     console.log("Número de marcadores en markers1:", markers1.length);
     console.log("Número de marcadores en markers2:", markers2.length);

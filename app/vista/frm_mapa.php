@@ -1,6 +1,6 @@
 <?php 
  session_start();// la sesion se esta manteniendo activa
-
+ 
  //$lista=$_SESSION['LISTA'];
  require_once '../../dao/AreaDao.php';
  require_once '../../util/ConexionBD.php';
@@ -11,7 +11,7 @@
  $info=$objAreaDao->infoArea($codigo);
 
 foreach($info  as $reg  ){}
- 
+$lista1=$_SESSION['LISTA1'];
 ?>
 
 
@@ -64,6 +64,46 @@ foreach($info  as $reg  ){}
                 }
             });
         }
+
+        function rutaClick() {
+        var selectElementInicio=document.getElementById('inicio');
+        var selectElementFin=document.getElementById('fin');
+
+        var campo1 = selectElementInicio.value;
+        var campo2 = selectElementFin.value;
+
+        var pisoInicio = selectElementInicio.options[selectElementInicio.selectedIndex].getAttribute('data-piso');;
+        var pisoFin = selectElementFin.options[selectElementFin.selectedIndex].getAttribute('data-piso');;
+        
+        console.log('Campo1:', campo1);
+        console.log('Campo2:', campo2);
+
+        console.log('Campo1:', pisoInicio);
+        console.log('Campo2:', pisoFin);
+        
+        
+        mostrarRuta(campo1, campo2, pisoInicio,pisoFin);
+        toggleButton("button"+pisoInicio);
+        
+        //mostrarRuta('A', 'SA109-AP');
+
+        /*
+        var campo1 = document.getElementById('inicio').value;
+    var selectElement = document.getElementById('fin');
+    var campo2 = selectElement.value;
+
+    // Obtén el atributo data-piso de la opción seleccionada
+    var selectedOption = selectElement.options[selectElement.selectedIndex];
+    var piso = selectedOption.getAttribute('data-piso');
+
+    console.log('Campo1:', campo1);
+    console.log('Campo2:', campo2);
+    console.log('Piso:', piso);
+        */
+        }
+
+        
+        
     </script>
     
 </head>
@@ -119,9 +159,33 @@ foreach($info  as $reg  ){}
     <button class="toggle-button" id="button2" onclick="toggleButton('button2'), toggleLayer(2)">2</button>
     <button class="toggle-button" id="button3" onclick="toggleButton('button3'), toggleLayer(3)">3</button>
 
+
+    
     </div>
+        
+    
+    <div id=ventanaRuta>
+    <select id="inicio" name="inicio" placeholder="Selección">
+            <option value="">Selección</option>
 
+            <?php
+            foreach ($lista1 as $reg) {
+        echo '<option value="' . $reg['codigo_area'] . '" data-piso="' . $reg['piso'] . '">' . $reg['piso'] .'-'. $reg['pabellon'] . '-' . $reg['nombre'] . '</option>';
+    }
+    ?> 
+    </select>
+    
+    <select id="fin" name="fin" placeholder="Selección">
+            <option value="">Selección</option>
 
+            <?php
+            foreach ($lista1 as $reg) {
+        echo '<option value="' . $reg['codigo_area'] . '" data-piso="' . $reg['piso'] . '">' . $reg['piso'] .'-'. $reg['pabellon'] . '-' . $reg['nombre'] . '</option>';
+    }
+    ?> 
+    </select>
+            <button class="toggle-button" id="buttonPrueba" onclick="toggleButton('buttonPrueba'), rutaClick()">RUTA</button>        
+    </div>
 
     <div id="ventanaEmergenteHorario" style="display: none;">
     <div class="ventana_horarios">

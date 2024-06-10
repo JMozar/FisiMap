@@ -5,10 +5,10 @@ var map = new mapboxgl.Map({
     style: 'mapbox://styles/mapbox/streets-v12',
     center: [-77.08555632370167, -12.053057801094083],
     zoom: 18.5,
-    maxBounds: [
-        [-77.0888854,-12.0627008], // Esquina suroeste de la zona permitida
-        [-77.0832369,-12.0490944]  // Esquina noreste de la zona permitida
-      ]
+    //maxBounds: [
+      //  [-77.0888854,-12.0627008], // Esquina suroeste de la zona permitida
+       // [-77.0832369,-12.0490944]  // Esquina noreste de la zona permitida
+      //]
 });
 map.addControl(new mapboxgl.NavigationControl());
 
@@ -94,7 +94,7 @@ var piso1 = {
         { "type": "Feature", "properties": { "id": null, "nombre_area": "201", "codigo": "SA201-NP" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ -77.085855293532703, -12.052746906260349 ], [ -77.085935895488433, -12.052759243027838 ], [ -77.085946906970264, -12.052689806054165 ], [ -77.085866305014648, -12.052677469284154 ], [ -77.085855293532703, -12.052746906260349 ] ] ] ] } },
         { "type": "Feature", "properties": { "id": null, "nombre_area": "207(Lab1)", "codigo": "LA001" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ -77.085516181181461, -12.052695012724833 ], [ -77.08559678313722, -12.052707349492321 ], [ -77.085607794619108, -12.052637912518644 ], [ -77.085527192663463, -12.052625575748637 ], [ -77.085516181181461, -12.052695012724833 ] ] ] ] } },
         { "type": "Feature", "properties": { "id": null, "nombre_area": "209(Lab3)", "codigo": "LA003" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ -77.085435159307821, -12.052682611686079 ], [ -77.085515761263579, -12.052694948453572 ], [ -77.085526772745453, -12.052625511479894 ], [ -77.085446170789766, -12.052613174709885 ], [ -77.085435159307821, -12.052682611686079 ] ] ] ] } },
-        { "type": "Feature", "properties": { "id": null, "nombre_area": "205", "codigo": "SA205-AP" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ -77.085597266251611, -12.052707423455344 ], [ -77.085677868207341, -12.052719760222832 ], [ -77.085688879689172, -12.052650323249159 ], [ -77.085608277733556, -12.052637986479148 ], [ -77.085597266251611, -12.052707423455344 ] ] ] ] } },
+        { "type": "Feature", "properties": { "id": null, "nombre_area": "205", "codigo": "SA205-NP" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ -77.085597266251611, -12.052707423455344 ], [ -77.085677868207341, -12.052719760222832 ], [ -77.085688879689172, -12.052650323249159 ], [ -77.085608277733556, -12.052637986479148 ], [ -77.085597266251611, -12.052707423455344 ] ] ] ] } },
         { "type": "Feature", "properties": { "id": null, "nombre_area": "Escaleras" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ -77.085781040084584, -12.052690837798009 ], [ -77.085736681619863, -12.052683877491685 ], [ -77.08574090885935, -12.052657854365158 ], [ -77.085785267324127, -12.052664814670965 ], [ -77.085781040084584, -12.052690837798009 ] ] ] ] } },
         { "type": "Feature", "properties": { "id": null, "nombre_area": "Escaleras" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ -77.085442029575105, -12.052638778009303 ], [ -77.085397671110385, -12.052631817702979 ], [ -77.085401898349872, -12.052605794576452 ], [ -77.085446256814649, -12.05261275488226 ], [ -77.085442029575105, -12.052638778009303 ] ] ] ] } },
         { "type": "Feature", "properties": { "id": null, "nombre_area": "Comedor", "codigo": "COM" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ -77.085889183970153, -12.053127431367926 ], [ -77.085728692482078, -12.053108159916611 ], [ -77.085750587900876, -12.05293376721405 ], [ -77.08591107938895, -12.05295303867789 ], [ -77.085889183970153, -12.053127431367926 ] ] ] ] } },
@@ -335,7 +335,7 @@ map.on('load', () => {
             'layout': {
             'text-field': ['get', 'nombre_area'],
             'text-radial-offset': 0.0,
-            'text-size': 10,
+            'text-size': 20,
             'text-justify': 'auto',
             'icon-image': ['get', 'icon']
             }
@@ -381,7 +381,7 @@ map.on('load', () => {
             'layout': {
             'text-field': ['get', 'nombre_area'],
             'text-radial-offset': 0.0,
-            'text-size': 10,
+            'text-size': 20,
             'text-justify': 'auto',
             'icon-image': ['get', 'icon']
             }
@@ -493,31 +493,57 @@ map.on('load', () => {
       });
     }
 
-    //cambiar capa
-    function toggleLayer(layerId) {
-        // Oculta todas las capas
-        //alert(layerId);
-        map.setLayoutProperty('maine1', 'visibility', 'none');
-        map.setLayoutProperty('outline1', 'visibility', 'none');
-        map.setLayoutProperty('poi-labels1', 'visibility', 'none');
-        map.setLayoutProperty('bd1', 'visibility', 'none');
-        
-        map.setLayoutProperty('maine2', 'visibility', 'none');
-        map.setLayoutProperty('outline2', 'visibility', 'none');
-        map.setLayoutProperty('poi-labels2', 'visibility', 'none');
-        map.setLayoutProperty('bd2', 'visibility', 'none');
+    let markers1 = [];
+let markers2 = [];
+let markers3 = [];
 
-        map.setLayoutProperty('maine3', 'visibility', 'none');
-        map.setLayoutProperty('outline3', 'visibility', 'none');
-        map.setLayoutProperty('poi-labels3', 'visibility', 'none');
-        map.setLayoutProperty('bd3', 'visibility', 'none');
+function removeAllMarkers() {
+    markers1.forEach(markerObj => markerObj.marker.remove());
+    markers1 = [];
+    markers2.forEach(markerObj => markerObj.marker.remove());
+    markers2 = [];
+    markers3.forEach(markerObj => markerObj.marker.remove());
+    markers3 = [];
+}
 
-        // Muestra la capa seleccionada
-        map.setLayoutProperty('maine' + layerId, 'visibility', 'visible');
-        map.setLayoutProperty('outline' + layerId, 'visibility', 'visible');
-        map.setLayoutProperty('poi-labels' + layerId, 'visibility', 'visible');
-        map.setLayoutProperty('bd'+layerId, 'visibility', 'visible');
+function toggleLayer(layerId) {
+    // Oculta todas las capas
+    const layers = ['maine', 'outline', 'poi-labels', 'bd'];
+    const pisos = [1, 2, 3];
+    pisos.forEach(piso => {
+        layers.forEach(layer => {
+            map.setLayoutProperty(layer + piso, 'visibility', 'none');
+        });
+    });
+
+    // Muestra la capa seleccionada
+    layers.forEach(layer => {
+        map.setLayoutProperty(layer + layerId, 'visibility', 'visible');
+    });
+
+    // Mostrar la ruta correspondiente al layerId
+    var routeId = 'route' + layerId;
+    if (map.getLayer(routeId)) {
+        map.setLayoutProperty(routeId, 'visibility', 'visible');
     }
+
+    // Ocultar todas las demás rutas
+    ['route1', 'route2', 'route3'].forEach(function(route) {
+        if (route !== routeId && map.getLayer(route)) {
+            map.setLayoutProperty(route, 'visibility', 'none');
+        }
+    });
+
+    // Mostrar los marcadores correspondientes al layerId y ocultar los demás
+    markers1.forEach(markerObj => {
+        if (markerObj.layerId === layerId) {
+            markerObj.marker.addTo(map);
+        } else {
+            markerObj.marker.remove();
+        }
+    });
+}
+    
     function colorear_mostrar(codigo){
         if (codigo != null) {
             mostrar(codigo);
@@ -580,3 +606,1412 @@ map.on('click', 'maine2', handleLayerClick);
 
 // Asigna la misma función de manejador de clics a las capas 'maine3'
 map.on('click', 'maine3', handleLayerClick);
+
+
+
+  map.on('load', function() {
+    map.addControl(new mapboxgl.GeolocateControl({
+      positionOptions: {
+        enableHighAccuracy: true
+      },
+      trackUserLocation: true
+    }));
+  });
+
+//APARTADO DE RUTAS
+const graph = {
+    
+    //PISO 1
+    'entrada': { 'A': 5},
+    'A': { 'UTD': 5, 'B': 5},
+    'B': { 'A': 5, 'B1': 5, 'CERSEU': 5, 'C': 5 },
+    'B1': { 'B': 5, 'UDE': 5, 'DAD': 5 },
+    
+    'C': { 'escalera1A': 5, 'D': 5 },//la escalera cambia
+    'D': { 'C': 5, 'OCA': 5, 'L': 5, 'E': 5 },
+    'E': { 'D': 5, 'SA109-AP': 5, 'F': 5, 'SA101-AP': 5},
+    'F': { 'E': 5, 'SA108-AP': 5, 'SA102-AP': 5, 'G': 5},
+    'G': { 'F': 5, 'SA107-AP': 5, 'H': 5 },
+    'H': { 'G': 5, 'SA103-AP': 5, 'SA106-AP': 5, 'I': 5 },
+    'I': { 'H': 5, 'SA105-AP': 5, 'LA011': 5, 'J': 5 },
+    'J': { 'I': 5, 'LA008': 5, 'BTC': 5, 'K': 5},
+    'K': { 'salida1A': 5, 'kiosco': 5, 'escalera1B': 5, 'J':5 }, //aca hay datos faltantes
+
+    'L': { 'D': 5, 'DACC': 5, 'M': 5 },
+    'M': { 'L': 5, 'USGOM': 5, 'N': 5 },
+    'N': { 'M': 5, 'escalera1d': 5, 'O': 5 }, //escalera
+    'O': { 'N': 5, 'baño1p': 5, 'entradapatio': 5, 'P': 5,  },//patio
+    'P': { 'O': 5, 'Q': 5 },
+    'Q': { 'P': 5, 'R': 5 },
+    'R': { 'Q': 5, 'AUD': 5, 'S': 5 },
+    'S': { 'R': 5, 'T': 5 },
+    'T': { 'S': 5, 'U': 5 },
+
+    'U': { 'T': 5, 'V': 5, 'X': 5 },
+    'V': { 'U': 5, 'SA103-NP': 5, 'SGDFG': 5, 'W': 5 },
+    'W': { 'V': 5, 'SA101-NP': 5, 'SA102-NP': 5},
+
+    'X': { 'U': 5, 'escaleran': 5, 'entradapatio3': 5, 'Y': 5 },
+    'Y': { 'X': 5, 'SA105-NP': 5, 'bañonuevo': 5, 'Z': 5 },
+    'Z': { 'Y': 5, 'SA107-NP': 5, 'SA106-NP': 5, 'a': 5 },
+    'a': { 'Z': 5, 'SA109-NP': 5, 'SA108-NP': 5, 'b': 5 },
+    'b': { 'a': 5, 'escalera1c': 5, 'entradapatio2': 5 },
+
+    'SA101-AP':{ 'E': 5},
+    'SA102-AP':{ 'F': 5},
+    'SA103-AP':{ 'H': 5},
+    'LA011':{ 'I': 5},
+
+    'SA109-AP':{ 'E': 5},
+    'SA108-AP':{ 'F': 5},
+    'SA107-AP':{ 'G': 5},
+    'SA106-AP':{ 'H': 5},
+    'SA105-AP':{ 'I': 5},
+    'LA008':{ 'J': 5},
+    'BTC':{ 'J': 5},
+
+    'UTD':{ 'A': 5},
+    'UDE':{ 'B1': 5},
+    'DAD':{ 'B1': 5},
+    'CERSEU':{ 'B': 5},
+    'OCA':{ 'D': 5},
+    'DACC':{ 'L': 5},
+    'USGOM':{ 'M': 5},
+    'escalera1d':{ 'N': 5},
+    'baño1p':{ 'O': 5},
+    'entradapatio':{ 'O': 5},
+    'AUD':{ 'R': 5},
+
+    'SA101-NP':{ 'W': 5},
+    'SA102-NP':{ 'W': 5},
+    'SA103-NP':{ 'V': 5},
+    'SGDFG':{ 'V': 5},
+    'escaleran':{ 'X': 5},
+    'entradapatio3':{ 'X': 5},
+
+    'SA105-NP':{ 'Y': 5},
+    'SA107-NP':{ 'Z': 5},
+    'SA109-NP':{ 'a': 5},
+
+    'bañonuevo':{ 'Y': 5},//baño error
+    'SA106-NP':{ 'Z': 5},
+    'SA108-NP':{ 'a': 5},
+
+    'escalera1c':{ 'b': 5},
+    'entradapatio2':{ 'b': 5},
+    'escalera1B':{ 'K': 5},
+
+
+
+
+    //PISO 2
+    'escalera1A': { 'C': 5 },
+    'C2': { 'escalera1A': 5, 'D2': 5, 'DEC': 5 , 'UP': 5},//la escalera cambia
+    'D2': { 'C2': 5, 'SSHH-AD-2': 5, 'L2': 5, 'E2': 5 },
+    'E2': { 'D2': 5, 'SA213-AP': 5, 'F2': 5, 'SA201-AP': 5},
+    'F2': { 'E2': 5, 'ODG': 5, 'SA202-AP': 5, 'G2': 5},
+    'G2': { 'F2': 5, 'SA212-AP': 5, 'H2': 5, 'SA203-AP': 5 },
+    'H2': { 'G2': 5, 'SA211-AP': 5, 'SA204-AP': 5, 'I2': 5 },
+    'I2': { 'H2': 5, 'SA210-AP': 5, 'SA205-AP': 5, 'A2': 5 },
+    'A2': { 'I2': 5, 'TE': 5, 'SA206-AP': 5, 'J2': 5 },
+    'J2': { 'A2': 5, 'SA209-AP': 5, 'B2': 5, 'K2': 5},
+    'B2': { 'J2': 5, 'SA207-AP': 5, 'AM': 5, 'BB2': 5},
+    'BB2': { 'B2': 5, 'GI': 5},
+    'K2': { 'J2': 5, 'escalera1B': 5}, //aca hay datos faltantes
+
+    'L2': { 'D2': 5, 'UPPN': 5, 'M2': 5 },
+    'M2': { 'L2': 5, 'OCAA': 5, 'N2': 5 },
+    'N2': { 'M2': 5, 'escalera1d': 5, 'O2': 5 }, //escalera
+    'O2': { 'N2': 5, 'baño1p': 5, 'entradapatio': 5, 'P2': 5  },//patio
+    'P2': { 'O2': 5, 'Q2': 5 },
+    'Q2': { 'P2': 5, 'R2': 5 },
+    'R2': { 'Q2': 5, 'COM': 5, 'S2': 5 },
+    'S2': { 'R2': 5, 'T2': 5 },
+    'T2': { 'S2': 5, 'U2': 5 },
+
+    'U2': { 'T2': 5, 'V2': 5, 'X2': 5 },
+    'V2': { 'U2': 5, 'SA203-NP': 5, 'SA204-NP': 5, 'W2': 5 },
+    'W2': { 'V2': 5, 'SA201-NP': 5, 'SA202-NP': 5},
+
+    'X2': { 'U2': 5, 'escaleran': 5, 'Y2': 5 },
+    'Y2': { 'X2': 5, 'SA205-NP': 5, 'bañonuevo': 5, 'Z2': 5 },
+    'Z2': { 'Y2': 5, 'LA001': 5, 'DTC': 5, 'a2': 5 },
+    'a2': { 'Z2': 5, 'LA003': 5, 'LA002': 5, 'b2': 5 },
+    'b2': { 'a2': 5, 'escalera1c': 5, 'entradapatio2': 5 },//aaaaaaa
+
+    'SA201-AP':{ 'E2': 5},
+    'SA202-AP':{ 'F2': 5},
+    'SA203-AP':{ 'G2': 5},
+    'SA204-AP':{ 'H2': 5},
+    'SA205-AP':{ 'I2': 5},
+    'SA206-AP':{ 'A2': 5},
+    
+    'SA213-AP':{ 'E2': 5},
+    'ODG':{ 'F2': 5},
+    'SA212-AP':{ 'G2': 5},
+    'SA211-AP':{ 'H2': 5},
+    'SA210-AP':{ 'I2': 5},
+    'TE':{ 'A2': 5},
+
+    'SA209-AP':{ 'J2': 5},
+    'AM':{ 'B2': 5},
+    'SA207-AP':{ 'B2': 5},
+    'GI':{ 'BB2': 5},
+    'escalera1B':{ 'K2': 5}, //AAAAAA
+
+    'escalera1A':{ 'C2': 5}, //AAAAAA
+    'DEC':{ 'C2': 5},
+    'UP':{ 'C2': 5},
+    'SSHH-AD-2':{ 'D2': 5},
+    'UPPN':{ 'L2': 5},
+    'OCAA':{ 'M2': 5},
+    'escalera1d':{ 'N2': 5},
+    'baño1p':{ 'O2': 5},
+//ACA FALTA EL DE SC
+
+    'COM':{ 'R2': 5},
+
+    'SA201-NP':{ 'W2': 5},
+    'SA202-NP':{ 'W2': 5},
+    'SA203-NP':{ 'V2': 5},
+    'SA204-NP':{ 'V2': 5},
+
+    'escaleran':{ 'X2': 5}, //aaaaaaaaaaaaaaaaaaa
+
+    'SA205-NP':{ 'Y2': 5},//CAMBIA POR NP
+    'bañonuevo':{ 'Y2': 5},
+    'DTC':{ 'Z2': 5},
+    'LA001':{ 'Z2': 5},
+    'LA002':{ 'a2': 5},
+    'LA003':{ 'a2': 5},
+
+    'escalera1c':{ 'b2': 5},
+
+    //PISO 3
+    'escalera1A': { 'C3': 5 },
+    'C3': { 'escalera1A': 5, 'D3': 5, 'OF309': 5 },//la escalera cambia
+    'D3': { 'C3': 5, 'SSHH-D-AP3': 5, 'L3': 5, 'E3': 5 },
+    'E3': { 'D3': 5, 'SA310-AP': 5, 'F3': 5, 'LA307-AP': 5},
+    'F3': { 'E3': 5, 'LA303-AP': 5, 'G3': 5},
+    'G3': { 'F3': 5, 'LA301-AP': 5, 'H3': 5, 'LA306-AP': 5 },
+    'H3': { 'G3': 5, 'SA302-AP': 5, 'LA305-AP': 5, 'I3': 5 },
+    'I3': { 'H3': 5, 'SA309-AP': 5, 'A3': 5 },
+    'A3': { 'I3': 5, 'SA311-AP': 5, 'LA304-AP': 5, 'J3': 5 },
+    'J3': { 'A3': 5, 'LA308-AP': 5, 'K3': 5},
+    'K3': { 'J3': 5, 'escalera1B': 5}, 
+
+    'L3': { 'D3': 5, 'OF311': 5, 'M3': 5 },
+    'M3': { 'L3': 5, 'UN-MA': 5, 'N3': 5 },
+    'N3': { 'M3': 5, 'escalera1d': 5, 'O3': 5 }, //escalera
+    'O3': { 'N3': 5, 'baño1p': 5, 'P3': 5  },//patio
+    'P3': { 'O3': 5, 'Q3': 5 },
+    'Q3': { 'P3': 5, 'R3': 5 },
+    'R3': { 'Q3': 5, 'UN-PO': 5, 'S3': 5 },
+    'S3': { 'R3': 5, 'T3': 5 },
+    'T3': { 'S3': 5, 'U3': 5 },
+
+    'U3': { 'T3': 5, 'SA302-NP': 5, 'SA301-NP': 5, 'X3': 5 },
+
+    'X3': { 'U3': 5, 'escaleran': 5, 'Y3': 5 },
+    'Y3': { 'X3': 5, 'LA303-NP': 5, 'SSHH-P3': 5, 'Z3': 5 },
+    'Z3': { 'Y3': 5, 'LA305-NP': 5, 'LA304-NP': 5, 'a3': 5 },
+    'a3': { 'Z3': 5, 'LA307-NP': 5, 'LA306-NP': 5, 'b3': 5 },
+    'b3': { 'a3': 5, 'escalera1c': 5},//aaaaaaa
+
+
+    'LA307-AP':{ 'E3': 5},
+    'LA306-AP':{ 'G3': 5},
+    'LA305-AP':{ 'H3': 5},
+    'LA304-AP':{ 'A3': 5},
+
+    'SA310-AP':{ 'E3': 5},
+    'LA303-AP':{ 'F3': 5},
+    'LA301-AP':{ 'G3': 5},
+    'SA302-AP':{ 'H3': 5},
+    'SA309-AP':{ 'I3': 5},
+    'SA311-AP':{ 'A3': 5},
+    'LA308-AP':{ 'J3': 5},
+
+    'OF309':{ 'C3': 5},
+    'SSHH-D-AP3':{ 'D3': 5},
+    'OF311':{ 'L3': 5},
+    'UN-MA':{ 'M3': 5},
+
+    'bañonuevo':{ 'Y3': 5},
+
+    'UN-PO':{ 'R3': 5},
+
+    'SA302-NP':{ 'U3': 5},
+    'SA301-NP':{ 'U3': 5},
+
+    'LA303-NP':{ 'Y3': 5},
+    'LA305-NP':{ 'Z3': 5},
+    'LA307-NP':{ 'a3': 5},
+
+    'bañonuevo':{ 'Y3': 5},
+    'LA304-NP':{ 'Z3': 5},
+    'LA306-NP':{ 'a3': 5},
+
+    'baño1p':{ 'O3': 5},
+
+
+
+
+
+    //uniones
+    'union1A':{ 'escalera1A': 1, 'C': 1, 'C2':1, 'C3':1},
+    'escalera1A':{ 'union1A': 1},
+
+    'union1B':{ 'escalera1B': 1, 'K': 1, 'K2':1, 'K3':1},
+    'escalera1B':{ 'union1B': 1},
+
+    'union1c':{ 'escalera1c': 1, 'b': 1, 'b2':1, 'b3':1},
+    'escalera1c':{ 'union1c': 1},
+
+    'union1d':{ 'escalera1d': 1, 'N': 1, 'N2':1, 'N3':1},
+    'escalera1d':{ 'union1d': 1},
+
+    'unionn':{ 'escaleran': 1, 'X': 1, 'X2':1, 'X3':1},
+    'escaleran':{ 'unionn': 1},
+
+
+};
+
+
+// Coordenadas para los puntos
+const coordinates = {
+    //DEL PISO 1
+    "entrada": [
+        -77.08576530424632,
+        -12.053524670187853
+    ],
+    "A": [
+        -77.0857680137789,
+        -12.053507509814862
+    ],
+    "UTD": [
+        -77.08580210873049,
+        -12.053512025702492
+    ],
+    "B": [
+        -77.08577140069461,
+        -12.053479511311561
+    ],
+    "UDE": [
+        -77.0858057214406,
+        -12.053483575610429
+    ],
+    "B1": [
+        -77.08579646387096,
+        -12.053482220844138
+    ],
+    "DAD": [
+        -77.08579872181478,
+        -12.053465060471147
+    ],
+    "CERSEU": [
+        -77.08577343284405,
+        -12.053461447761045
+    ],
+    "C": [
+        -77.08571246836105,
+        -12.053471382713829
+    ],
+    "escalera1A": [
+        -77.08571201677229,
+        -12.05348086607785
+    ],
+    "union1A": [
+        -77.08571201677229,
+        -12.05348086607785
+    ],
+    "D": [
+        -77.08572420966888,
+        -12.05338467767135
+    ],
+    "OCA": [
+        -77.08577072331147,
+        -12.053389193558978
+    ],
+    "E": [
+        -77.0856375046264,
+        -12.053369775242173
+    ],
+    "SA109-AP": [
+        -77.08564066574775,
+        -12.05334132515011
+    ],
+    "SA101-AP": [
+        -77.0856338919163,
+        -12.05339732215671
+    ],
+    "F": [
+        -77.08554267098617,
+        -12.053357582345571
+    ],
+    "G": [
+        -77.08547764220431,
+        -12.05334809898155
+    ],
+    "H": [
+        -77.08540629117978,
+        -12.053339067206291
+    ],
+    "I": [
+        -77.08531777978224,
+        -12.053330035431035
+    ],
+    "J": [
+        -77.0852342358611,
+        -12.053321906833302
+    ],
+    "K": [
+        -77.08522159137574,
+        -12.053405450754441
+    ],
+    "salida1A": [
+        -77.08523423586111,
+        -12.053425772248769
+    ],
+    "kiosco": [
+        -77.0852161723106,
+        -12.053442029444234
+    ],
+    "escalera1B": [
+        -77.08519630240502,
+        -12.053437513556604
+    ],
+    "SA108-AP": [
+        -77.08554696107943,
+        -12.053329583842268
+    ],
+    "SA102-AP": [
+        -77.0855374777154,
+        -12.05338558084887
+    ],
+    "SA107-AP": [
+        -77.08548238388633,
+        -12.053321455244536
+    ],
+    "LA011": [
+        -77.08531394127778,
+        -12.05335758234557
+    ],
+    "LA008": [
+        -77.0852380743656,
+        -12.053292553563711
+    ],
+    "BTC": [
+        -77.08520239885334,
+        -12.053295714685051
+    ],
+    "L": [
+        -77.08572940293969,
+        -12.05334403468268
+    ],
+    "M": [
+        -77.08573572518237,
+        -12.053298875806389
+    ],
+    "N": [
+        -77.08574340219135,
+        -12.053255974873911
+    ],
+    "O": [
+        -77.08575243396662,
+        -12.053185527026896
+    ],
+    "entradapatio": [
+        -77.08570908144537,
+        -12.05318146272803
+    ],
+    "P": [
+        -77.08575559508797,
+        -12.053154818991018
+    ],
+    "Q": [
+        -77.0857027592027,
+        -12.053147141982048
+    ],
+    "R": [
+        -77.08571901639817,
+        -12.05301708441833
+    ],
+    "S": [
+        -77.08573030611724,
+        -12.052930830964613
+    ],
+    "T": [
+        -77.08576146574188,
+        -12.052855415641206
+    ],
+    "U": [
+        -77.08577817452603,
+        -12.052759678823467
+    ],
+    "V": [
+        -77.08582333340232,
+        -12.0527678074212
+    ],
+    "W": [
+        -77.08589332966058,
+        -12.05277729078522
+    ],
+    "X": [
+        -77.08574520854634,
+        -12.052754711347074
+    ],
+    "Y": [
+        -77.08562418275788,
+        -12.052734841441506
+    ],
+    "Z": [
+        -77.0855388324817,
+        -12.052722196956145
+    ],
+    "a": [
+        -77.08545393379427,
+        -12.052709552470782
+    ],
+    "b": [
+        -77.08540154949777,
+        -12.052702327050577
+    ],
+    "entradapatio2": [
+        -77.08539251772251,
+        -12.05273709938532
+    ],
+    "union1c": [
+        -77.08541780669324,
+        -12.052635491913666
+    ],
+    "SA108-NP": [
+        -77.0854498694954,
+        -12.052735293030269
+    ],
+    "SA109-NP": [
+        -77.08545890127067,
+        -12.052686521443874
+    ],
+    "SA106-NP": [
+        -77.08553431659406,
+        -12.052748840693157
+    ],
+    "SA107-NP": [
+        -77.08554334836933,
+        -12.052698714340472
+    ],
+    "bañoonuevo": [
+        -77.08562057004778,
+        -12.052762388356044
+    ],
+    "SA105-NP": [
+        -77.08562734387922,
+        -12.052711810414598
+    ],
+    "escaleran": [
+        -77.08575740144293,
+        -12.052686521443878
+    ],
+    "SA103-NP": [
+        -77.0858273977012,
+        -12.052741615272952
+    ],
+    "SGDFG": [
+        -77.08581972069223,
+        -12.052793547980688
+    ],
+    "SA101-NP": [
+        -77.08589739395946,
+        -12.052752904992024
+    ],
+    "SA102-NP": [
+        -77.08588971695049,
+        -12.05280483769976
+    ],
+    "entradapatio3": [
+        -77.08569237266109,
+        -12.05282967508172
+    ],
+    "AUD": [
+        -77.08574001527558,
+        -12.05301934236214
+    ],
+    "baño1p": [
+        -77.08580820517876,
+        -12.053191397680814
+    ],
+    "escalera1d": [
+        -77.08584433227983,
+        -12.053267716181745
+    ],
+    "USGOM": [
+        -77.08578065826426,
+        -12.053304746460304
+    ],
+    "DACC": [
+        -77.08577569078787,
+        -12.053350356925359
+    ],
+    "SA103-AP": [
+        -77.08540109790901,
+        -12.053368420475879
+    ],
+    "SA105-AP": [
+        -77.08532252146426,
+        -12.053302488516493
+    ],
+    "SA106-AP": [
+        -77.08541012968426,
+        -12.05331287505804
+    ],
+
+    //DEL PISO 2
+    "SA203-AP": [
+        -77.08552591129579,
+        -12.053382473214569
+    ],
+    "A2": [
+        -77.08530929045031,
+        -12.053325492513904
+    ],
+    "TE": [
+        -77.08531305776935,
+        -12.053301475854944
+    ],
+    "DEC": [
+        -77.08575020952495,
+        -12.053459732886537
+    ],
+    "UP": [
+        -77.08576466514089,
+        -12.053437570255715
+    ],
+    "C2": [
+        -77.08571804456747,
+        -12.053427681043196
+    ],
+    "escalera1A": [
+        -77.08571201677229,
+        -12.05348086607785
+    ],
+    "D2": [
+        -77.08572420966888,
+        -12.05338467767135
+    ],
+    "SSHH-AD-2": [
+        -77.08577072331147,
+        -12.053389193558978
+    ],
+    "E2": [
+        -77.0856375046264,
+        -12.053369775242173
+    ],
+    "SA-213-AP": [
+        -77.08564066574775,
+        -12.05334132515011
+    ],
+    "SA201-AP": [
+        -77.0856338919163,
+        -12.05339732215671
+    ],
+    "F2": [
+        -77.08559183937933,
+        -12.053362694789554
+    ],
+    "G2": [
+        -77.08553014952984,
+        -12.053353747406804
+    ],
+    "H2": [
+        -77.08545762863808,
+        -12.053343858194289
+    ],
+    "I2": [
+        -77.08537098029988,
+        -12.053333027152012
+    ],
+    "J2": [
+        -77.08523517769085,
+        -12.05331531402496
+    ],
+    "K2": [
+        -77.08522159137574,
+        -12.053405450754441
+    ],
+    "salida1A": [
+        -77.08523423586111,
+        -12.053425772248769
+    ],
+    "SA206-AP": [
+        -77.08530269764196,
+        -12.053354218321678
+    ],
+    "union1B": [
+        -77.08519630240502,
+        -12.053437513556604
+    ],
+    "ODG": [
+        -77.08559372303885,
+        -12.053334910811543
+    ],
+    "SA202-AP": [
+        -77.08558807206028,
+        -12.053390007852684
+    ],
+    "SA212-AP": [
+        -77.08553297501913,
+        -12.053328318003201
+    ],
+    "SA205-AP": [
+        -77.08562734387922,
+        -12.052711810414598
+    ],
+    "SA209-AP": [
+        -77.0852380743656,
+        -12.053292553563711
+    ],
+    "AM": [
+        -77.08518402709187,
+        -12.053286406578737
+    ],
+    "L2": [
+        -77.08572940293969,
+        -12.05334403468268
+    ],
+    "M2": [
+        -77.08573572518237,
+        -12.053298875806389
+    ],
+    "N2": [
+        -77.08577408343845,
+        -12.053261448090016
+    ],
+    "O2": [
+        -77.08578632722538,
+        -12.053158317730958
+    ],
+    "SA207-AP": [
+        -77.08517555062394,
+        -12.053339149045469
+    ],
+    "P2": [
+        -77.08575559508797,
+        -12.053154818991018
+    ],
+    "Q2": [
+        -77.0857027592027,
+        -12.053147141982048
+    ],
+    "R2": [
+        -77.08571901639817,
+        -12.05301708441833
+    ],
+    "S2": [
+        -77.08573030611724,
+        -12.052930830964613
+    ],
+    "T2": [
+        -77.08576146574188,
+        -12.052855415641206
+    ],
+    "U2": [
+        -77.08577817452603,
+        -12.052759678823467
+    ],
+    "V2": [
+        -77.08582333340232,
+        -12.0527678074212
+    ],
+    "W2": [
+        -77.08589332966058,
+        -12.05277729078522
+    ],
+    "X2": [
+        -77.08574520854634,
+        -12.052754711347074
+    ],
+    "Y2": [
+        -77.08562418275788,
+        -12.052734841441506
+    ],
+    "Z2": [
+        -77.0855388324817,
+        -12.052722196956145
+    ],
+    "a2": [
+        -77.08545393379427,
+        -12.052709552470782
+    ],
+    "b2": [
+        -77.08540154949777,
+        -12.052702327050577
+    ],
+    "entradapatio2": [
+        -77.08539251772251,
+        -12.05273709938532
+    ],
+    "escalera1c": [
+        -77.08541780669324,
+        -12.052635491913666
+    ],
+    "LA002": [
+        -77.0854498694954,
+        -12.052735293030269
+    ],
+    "LA003": [
+        -77.08545890127067,
+        -12.052686521443874
+    ],
+    "DTC": [
+        -77.08553431659406,
+        -12.052748840693157
+    ],
+    "LA001": [
+        -77.08554334836933,
+        -12.052698714340472
+    ],
+    "bañonuevo": [
+        -77.08562057004778,
+        -12.052762388356044
+    ],
+    "SA205-NP": [ 
+        -77.085627343879224, 
+        -12.052711810414598 
+    ],
+    "unionn": [
+        -77.08575740144293,
+        -12.052686521443878
+    ],
+    "SA203-NP": [
+        -77.0858273977012,
+        -12.052741615272952
+    ],
+    "SA204-NP": [
+        -77.08581972069223,
+        -12.052793547980688
+    ],
+    "SA201-NP": [
+        -77.08589739395946,
+        -12.052752904992024
+    ],
+    "SA202-NP": [
+        -77.08588971695049,
+        -12.05280483769976
+    ],
+    "COM": [
+        -77.08574001527558,
+        -12.05301934236214
+    ],
+    "union1d": [
+        -77.08584433227983,
+        -12.053267716181745
+    ],
+    "OCAA": [
+        -77.08578065826426,
+        -12.053304746460304
+    ],
+    "UPPN": [
+        -77.08577569078787,
+        -12.053350356925359
+    ],
+    "SA204-AP": [
+        -77.08545150674463,
+        -12.053372584002066
+    ],
+    "SA210-AP": [
+        -77.08537474761894,
+        -12.053309010493054
+    ],
+    "SA211-AP": [
+        -77.0854599832125,
+        -12.053319370620452
+    ],
+    "B2": [
+        -77.08518120160252,
+        -12.053307126833523
+    ],
+    "BB2": [
+        -77.08510585522146,
+        -12.053297237621011
+    ],
+    "GI": [
+        -77.08510067515776,
+        -12.05333020166272
+    ],
+
+    //del piso 3
+    "LA306-AP": [
+        -77.08552591129579,
+        -12.053382473214569
+    ],
+    "A3": [
+        -77.08530929045031,
+        -12.053325492513904
+    ],
+    "SA311-AP": [
+        -77.08531305776935,
+        -12.053301475854944
+    ],
+    "OF309": [
+        -77.08576466514089,
+        -12.053437570255715
+    ],
+    "C3": [
+        -77.08571804456747,
+        -12.053427681043196
+    ],
+    "escalera1A": [
+        -77.08571201677229,
+        -12.05348086607785
+    ],
+    "D3": [
+        -77.08572420966888,
+        -12.05338467767135
+    ],
+    "SSHH-D-AP3": [
+        -77.08577072331147,
+        -12.053389193558978
+    ],
+    "E3": [
+        -77.0856375046264,
+        -12.053369775242173
+    ],
+    "SA310-AP": [
+        -77.08564066574775,
+        -12.05334132515011
+    ],
+    "LA307-AP": [
+        -77.0856338919163,
+        -12.05339732215671
+    ],
+    "F3": [
+        -77.08559183937933,
+        -12.053362694789554
+    ],
+    "G3": [
+        -77.08553014952984,
+        -12.053353747406804
+    ],
+    "H3": [
+        -77.08545762863808,
+        -12.053343858194289
+    ],
+    "I3": [
+        -77.08537098029988,
+        -12.053333027152012
+    ],
+    "J3": [
+        -77.08523517769085,
+        -12.05331531402496
+    ],
+    "K3": [
+        -77.08522159137574,
+        -12.053405450754441
+    ],
+    "salida1A": [
+        -77.08523423586111,
+        -12.053425772248769
+    ],
+    "LA304-AP": [
+        -77.08530269764196,
+        -12.053354218321678
+    ],
+    "escalera1B": [
+        -77.08519630240502,
+        -12.053437513556604
+    ],
+    "LA303-AP": [
+        -77.08559372303885,
+        -12.053334910811543
+    ],
+    "LA301-AP": [
+        -77.08553297501913,
+        -12.053328318003201
+    ],
+    "LA308-AP": [
+        -77.0852380743656,
+        -12.053292553563711
+    ],
+    "L3": [
+        -77.08572940293969,
+        -12.05334403468268
+    ],
+    "M3": [
+        -77.08573572518237,
+        -12.053298875806389
+    ],
+    "N3": [
+        -77.08577408343845,
+        -12.053261448090016
+    ],
+    "O3": [
+        -77.08578632722538,
+        -12.053158317730958
+    ],
+    "P3": [
+        -77.08575559508797,
+        -12.053154818991018
+    ],
+    "Q3": [
+        -77.0857027592027,
+        -12.053147141982048
+    ],
+    "R3": [
+        -77.08571901639817,
+        -12.05301708441833
+    ],
+    "S3": [
+        -77.08573030611724,
+        -12.052930830964613
+    ],
+    "T3": [
+        -77.08576146574188,
+        -12.052855415641206
+    ],
+    "U3": [
+        -77.08577817452603,
+        -12.052759678823467
+    ],
+    "X3": [
+        -77.08574520854634,
+        -12.052754711347074
+    ],
+    "Y3": [
+        -77.08562418275788,
+        -12.052734841441506
+    ],
+    "Z3": [
+        -77.0855388324817,
+        -12.052722196956145
+    ],
+    "a3": [
+        -77.08545393379427,
+        -12.052709552470782
+    ],
+    "b3": [
+        -77.08540154949777,
+        -12.052702327050577
+    ],
+    "entradapatio2": [
+        -77.08539251772251,
+        -12.05273709938532
+    ],
+    "escalera1c": [
+        -77.08541780669324,
+        -12.052635491913666
+    ],
+    "LA306-NP": [
+        -77.0854498694954,
+        -12.052735293030269
+    ],
+    "LA307-NP": [
+        -77.08545890127067,
+        -12.052686521443874
+    ],
+    "LA304-NP": [
+        -77.08553431659406,
+        -12.052748840693157
+    ],
+    "LA305-NP": [
+        -77.08554334836933,
+        -12.052698714340472
+    ],
+    "SSHH-P3": [
+        -77.08581222754385,
+        -12.05316208505001
+    ],
+    "LA303-NP": [
+        -77.08562734387922,
+        -12.052711810414598
+    ],
+    "escaleran": [
+        -77.08575740144293,
+        -12.052686521443878
+    ],
+    "SA301-NP": [
+        -77.0857824070753,
+        -12.052735740700783
+    ],
+    "SA302-NP": [
+        -77.08578848516214,
+        -12.052761166192628
+    ],
+    "UN-PO": [
+        -77.08574001527558,
+        -12.05301934236214
+    ],
+    "escalera1d": [
+        -77.08584433227983,
+        -12.053267716181745
+    ],
+    "UN-MA": [
+        -77.08578065826426,
+        -12.053304746460304
+    ],
+    "OF311": [
+        -77.08577569078787,
+        -12.053350356925359
+    ],
+    "LA305-AP": [
+        -77.08545150674463,
+        -12.053372584002066
+    ],
+    "SA309-AP": [
+        -77.08537474761894,
+        -12.053309010493054
+    ],
+    "SA302-AP": [
+        -77.0854599832125,
+        -12.053319370620452
+    ]
+};
+
+//ALGORITMO DIJSTRA
+function dijkstra(graph, start, end) {
+    const shortestDistanceNode = (distances, visited) => {
+        let shortest = null;
+
+        for (let node in distances) {
+            let currentIsShortest = shortest === null || distances[node] < distances[shortest];
+            if (currentIsShortest && !visited.includes(node)) {
+                shortest = node;
+            }
+        }
+        return shortest;
+    };
+
+    let distances = {};
+    distances[end] = Infinity;
+    distances = Object.assign(distances, graph[start]);
+
+    let parents = { end: null };
+    for (let child in graph[start]) {
+        parents[child] = start;
+    }
+
+    let visited = [];
+
+    let node = shortestDistanceNode(distances, visited);
+
+    while (node) {
+        let distance = distances[node];
+        let children = graph[node];
+
+        for (let child in children) {
+            if (String(child) === String(start)) {
+                continue;
+            } else {
+                let newDistance = distance + children[child];
+                if (!distances[child] || distances[child] > newDistance) {
+                    distances[child] = newDistance;
+                    parents[child] = node;
+                }
+            }
+        }
+        visited.push(node);
+        node = shortestDistanceNode(distances, visited);
+    }
+
+    let shortestPath = [end];
+    let parent = parents[end];
+    while (parent) {
+        shortestPath.unshift(parent);
+        parent = parents[parent];
+    }
+
+    return {
+        distance: distances[end],
+        path: shortestPath
+    };
+}
+
+// Ejemplo de uso
+//const startNode = 'A';
+//const endNode = 'D';
+//const result = dijkstra(graph, startNode, endNode);
+
+//console.log(`Distancia más corta de ${startNode} a ${endNode}: ${result.distance}`);
+//console.log(`Ruta más corta: ${result.path.join(' -> ')}`);
+
+
+
+function mostrarRuta(startNode, endNode, pisoInicio, pisoFin) {
+    // Eliminar todos los marcadores existentes
+    removeAllMarkers();
+
+    toggleLayer(pisoInicio);
+    // Ocultar todas las rutas existentes
+    ['route1', 'route2', 'route3'].forEach(function(routeId) {
+        if (map.getLayer(routeId)) {
+            map.setLayoutProperty(routeId, 'visibility', 'none');
+        }
+    });
+
+    let pathCoordinates1, pathCoordinates2;
+    let routeId1 = 'route' + pisoInicio;
+    let routeId2 = 'route' + pisoFin;
+
+    let graphId1 = 'graph' + pisoInicio;
+    let graphId2 = 'graph' + pisoFin;
+
+    console.log("Grafos: ");
+    console.log(graphId1);
+    console.log(graphId2);
+
+    // Crear un marcador en el nodo inicial
+    let startCoordinates = coordinates[startNode];
+    const startMarker = new mapboxgl.Marker({ color: 'green' })
+        .setLngLat(startCoordinates)
+        .addTo(map);
+    if (pisoInicio === 1) {
+        markers1.push({ marker: startMarker, layerId: pisoInicio });
+    } else if (pisoInicio === 2) {
+        markers2.push({ marker: startMarker, layerId: pisoInicio });
+    } else if (pisoInicio === 3) {
+        markers3.push({ marker: startMarker, layerId: pisoInicio });
+    }
+    console.log(`Coordenadas del nodo inicial (${startNode}):`, startCoordinates);
+
+    if (pisoInicio !== pisoFin) {
+        var escaleraCerca = escaleraMasCercana(graph, startNode);
+        console.log("Escalera más cercana:", escaleraCerca);
+
+        let result1 = dijkstra(graph, startNode, escaleraCerca);
+        console.log("Camino del nodo inicial a la escalera más cercana:", result1.path);
+
+        let result2 = dijkstra(graph, escaleraCerca, endNode);
+        console.log("Camino de la escalera más cercana al nodo final:", result2.path);
+
+        pathCoordinates1 = result1.path.map(node => coordinates[node]);
+        pathCoordinates2 = result2.path.map(node => coordinates[node]);
+
+        if (!map.getSource(routeId1)) {
+            map.addSource(routeId1, {
+                'type': 'geojson',
+                'data': {
+                    'type': 'Feature',
+                    'properties': {},
+                    'geometry': {
+                        'type': 'LineString',
+                        'coordinates': pathCoordinates1
+                    }
+                }
+            });
+
+            map.addLayer({
+                'id': routeId1,
+                'type': 'line',
+                'source': routeId1,
+                'layout': {
+                    'line-join': 'round',
+                    'line-cap': 'round'
+                },
+                'paint': {
+                    'line-color': '#FF0000',
+                    'line-width': 8
+                }
+            });
+        } else {
+            map.getSource(routeId1).setData({
+                'type': 'Feature',
+                'properties': {},
+                'geometry': {
+                    'type': 'LineString',
+                    'coordinates': pathCoordinates1
+                }
+            });
+        }
+
+        if (!map.getSource(routeId2)) {
+            map.addSource(routeId2, {
+                'type': 'geojson',
+                'data': {
+                    'type': 'Feature',
+                    'properties': {},
+                    'geometry': {
+                        'type': 'LineString',
+                        'coordinates': pathCoordinates2
+                    }
+                }
+            });
+
+            map.addLayer({
+                'id': routeId2,
+                'type': 'line',
+                'source': routeId2,
+                'layout': {
+                    'line-join': 'round',
+                    'line-cap': 'round'
+                },
+                'paint': {
+                    'line-color': '#0000FF',
+                    'line-width': 8
+                }
+            });
+        } else {
+            map.getSource(routeId2).setData({
+                'type': 'Feature',
+                'properties': {},
+                'geometry': {
+                    'type': 'LineString',
+                    'coordinates': pathCoordinates2
+                }
+            });
+        }
+
+        map.setLayoutProperty(routeId1, 'visibility', 'visible');
+        map.setLayoutProperty(routeId2, 'visibility', 'none');
+
+    } else {
+        let result = dijkstra(graph, startNode, endNode);
+        console.log("Camino del nodo inicial al nodo final:", result.path);
+
+        let pathCoordinates = result.path.map(node => coordinates[node]);
+
+        // Ocultar y eliminar todas las rutas que no corresponden al piso actual
+        ['route1', 'route2', 'route3'].forEach(function(routeId) {
+            if (routeId !== routeId1) {
+                if (map.getLayer(routeId)) {
+                    map.removeLayer(routeId);
+                }
+                if (map.getSource(routeId)) {
+                    map.removeSource(routeId);
+                }
+            }
+        });
+
+        if (!map.getSource(routeId1)) {
+            map.addSource(routeId1, {
+                'type': 'geojson',
+                'data': {
+                    'type': 'Feature',
+                    'properties': {},
+                    'geometry': {
+                        'type': 'LineString',
+                        'coordinates': pathCoordinates
+                    }
+                }
+            });
+
+            map.addLayer({
+                'id': routeId1,
+                'type': 'line',
+                'source': routeId1,
+                'layout': {
+                    'line-join': 'round',
+                    'line-cap': 'round'
+                },
+                'paint': {
+                    'line-color': '#888',
+                    'line-width': 8
+                }
+            });
+        } else {
+            map.getSource(routeId1).setData({
+                'type': 'Feature',
+                'properties': {},
+                'geometry': {
+                    'type': 'LineString',
+                    'coordinates': pathCoordinates
+                }
+            });
+        }
+
+        map.setLayoutProperty(routeId1, 'visibility', 'visible');
+    }
+
+    // Crear un marcador en el nodo final
+    let endCoordinates = coordinates[endNode];
+    const endMarker = new mapboxgl.Marker({ color: 'red' })
+        .setLngLat(endCoordinates)
+        .addTo(map);
+    if (pisoFin === 1) {
+        markers1.push({ marker: endMarker, layerId: pisoFin });
+    } else if (pisoFin === 2) {
+        markers2.push({ marker: endMarker, layerId: pisoFin });
+    } else if (pisoFin === 3) {
+        markers3.push({ marker: endMarker, layerId: pisoFin });
+    }
+    console.log(`Coordenadas del nodo final (${endNode}):`, endCoordinates);
+}
+
+
+
+
+//encuentra la escalera mas cercana
+// Algoritmo de Dijkstra modificado para devolver el nodo más cercano
+function dijkstraNodoMasCercano(graph, startNode, targetNodes) {
+    const distances = {};
+    const visited = new Set();
+    const queue = new PriorityQueue();
+
+    // Inicializar todas las distancias como infinito y la distancia al nodo inicial como 0
+    for (let node in graph) {
+        distances[node] = Infinity;
+    }
+    distances[startNode] = 0;
+
+    // Añadir el nodo inicial a la cola de prioridad
+    queue.enqueue(startNode, 0);
+
+    while (!queue.isEmpty()) {
+        const { element: currentNode } = queue.dequeue();
+        visited.add(currentNode);
+
+        // Si el nodo actual es uno de los nodos objetivo, devolverlo
+        if (targetNodes.includes(currentNode)) {
+            return currentNode;
+        }
+
+        for (let neighbor in graph[currentNode]) {
+            if (!visited.has(neighbor)) {
+                let newDist = distances[currentNode] + graph[currentNode][neighbor];
+                if (newDist < distances[neighbor]) {
+                    distances[neighbor] = newDist;
+                    queue.enqueue(neighbor, newDist);
+                }
+            }
+        }
+    }
+
+    return null; // Si no se encuentra ningún nodo objetivo
+}
+
+// Cola de prioridad simple para el algoritmo de Dijkstra
+class PriorityQueue {
+    constructor() {
+        this.items = [];
+    }
+
+    enqueue(element, priority) {
+        const queueElement = { element, priority };
+        let added = false;
+
+        for (let i = 0; i < this.items.length; i++) {
+            if (queueElement.priority < this.items[i].priority) {
+                this.items.splice(i, 0, queueElement);
+                added = true;
+                break;
+            }
+        }
+
+        if (!added) {
+            this.items.push(queueElement);
+        }
+    }
+
+    dequeue() {
+        return this.items.shift();
+    }
+
+    isEmpty() {
+        return this.items.length === 0;
+    }
+}
+
+// Función para encontrar la escalera más cercana
+function escaleraMasCercana(graph, startNode) {
+    const escaleras = ['escalera1A', 'escalera1B', 'escalera1c', 'escalera1d', 'escaleran'];
+    return dijkstraNodoMasCercano(graph, startNode, escaleras);
+}

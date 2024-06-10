@@ -157,11 +157,24 @@ position: relative;
     /* height: 20px;
     padding-left: 10px; */
 }
+
+/*Estilo para la seleccion de rutas*/
+#ventanaRuta{
+    position: fixed;
+    top: 18%; /*21 antes*/
+    left: 2em;
+    width: 20%;
+    max-height: 50%; /* Altura máxima deseada de la ventana emergente */
+    overflow: auto; /* Agrega barras de desplazamiento si es necesario */
+    z-index: 1;
+    background-color: #ddd;
+}
+
 /*Estilos ventana emergente*/
 .ventana {
     display: none;
     position: fixed;
-    top: 21%;
+    top: 28%; /*21 antes*/
     left: 2em;
     width: 24%;
     max-height: 70%; /* Altura máxima deseada de la ventana emergente */

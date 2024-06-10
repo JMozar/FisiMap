@@ -1794,8 +1794,18 @@ function mostrarRuta(startNode, endNode, pisoInicio, pisoFin) {
     const startMarker = new mapboxgl.Marker({ color: 'green' })
         .setLngLat(startCoordinates)
         .addTo(map);
-        
-    markers2.push({ marker: startMarker, layerId: pisoInicio });
+    console.log("PISO INICIO: "+pisoInicio);
+    console.log("PISO FIN: "+pisoFin);
+    if(pisoInicio==1){
+        markers1.push({ marker: startMarker, layerId: pisoInicio });
+    }
+    if(pisoInicio==2){
+        markers2.push({ marker: startMarker, layerId: pisoInicio });
+    }
+    if(pisoInicio==3){
+        markers3.push({ marker: startMarker, layerId: pisoInicio });
+    }     
+    //markers2.push({ marker: startMarker, layerId: pisoInicio });
     console.log(`Coordenadas del nodo inicial (${startNode}):`, startCoordinates);
 
     if (pisoInicio !== pisoFin) {
@@ -1951,7 +1961,16 @@ function mostrarRuta(startNode, endNode, pisoInicio, pisoFin) {
     const endMarker = new mapboxgl.Marker({ color: 'red' })
         .setLngLat(endCoordinates)
         .addTo(map);
-    markers1.push({ marker: endMarker, layerId: pisoFin });
+        if(pisoFin==1){
+            markers1.push({ marker: endMarker, layerId: pisoFin });
+        }
+        if(pisoFin==2){
+            markers2.push({ marker: endMarker, layerId: pisoFin });
+        }
+        if(pisoFin==3){
+            markers3.push({ marker: endMarker, layerId: pisoFin });
+        }  
+    //markers1.push({ marker: endMarker, layerId: pisoFin });
     console.log(`Coordenadas del nodo final (${endNode}):`, endCoordinates);
 
     console.log("Número de marcadores en markers1:", markers1.length);

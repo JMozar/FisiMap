@@ -443,7 +443,7 @@ map.on('load', () => {
             'layout': {
             'text-field': ['get', 'nombre_area'],
             'text-radial-offset': 0.0,
-            'text-size': 10,
+            'text-size': 20,
             'text-justify': 'auto',
             'icon-image': ['get', 'icon']
             }
@@ -1779,6 +1779,15 @@ function mostrarRuta(startNode, endNode, pisoInicio, pisoFin) {
     ['route1', 'route2', 'route3'].forEach(function(routeId) {
         if (map.getLayer(routeId)) {
             map.setLayoutProperty(routeId, 'visibility', 'none');
+        }
+    });
+
+    ['route1', 'route2', 'route3'].forEach(function(routeId) {
+        if (map.getLayer(routeId)) {
+            map.removeLayer(routeId);
+        }
+        if (map.getSource(routeId)) {
+            map.removeSource(routeId);
         }
     });
 

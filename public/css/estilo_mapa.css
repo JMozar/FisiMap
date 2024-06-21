@@ -64,14 +64,44 @@ position: relative;
 }
 
 
-/*Estilos clase buscador*/
-.buscador{
+/* Estilos clase buscador */
+.buscador {
     margin-left: 1.5em;
     margin-top: 1.5em;
     position: absolute;
-    width: 25%;
+    width: 25%; /* Ancho fijo actual, puede ajustarse */
     z-index: 1;
 }
+
+/* Estilo buscador dentro de la pantalla mapa */
+@media (max-width: 768px) {
+    .buscador {
+        position: relative; /* Cambiar a posición relativa para que sea relativo al contenedor */
+        width: 100%; /* Ocupar todo el ancho del contenedor */
+        margin: 1px 1px; /* Reducir el margen */
+        box-sizing: border-box; /* Incluir el relleno en el ancho total */
+        
+    }
+}
+
+/* Estilo barra de búsqueda dentro de buscador */
+.buscador input {
+    width: 100%; /* Ocupar todo el ancho del contenedor */
+    height: 40px; /* Altura de la barra de búsqueda */
+    padding: 0 10px; /* Relleno interno */
+    box-sizing: border-box; /* Incluir el relleno en el ancho total */
+    border: 1px solid #ccc; /* Borde para la barra de búsqueda */
+    border-radius: 5px; /* Borde redondeado */
+    font-size: 16px; /* Tamaño de fuente */
+}
+
+@media (max-width: 768px) {
+    .buscador input {
+        height: 30px; /* Reducir la altura en dispositivos móviles */
+        font-size: 14px; /* Reducir el tamaño de fuente en dispositivos móviles */
+    }
+}
+
 /*Estilos clase botones*/
 .botones{
     position: absolute;
@@ -102,7 +132,7 @@ position: relative;
     position: absolute;
     z-index: 1;
     right: 1rem;
-    bottom: 5rem;
+    bottom: 6.5rem;
 }
 /*Estilo de los botones de los pisos*/
 .navegador button{
@@ -147,16 +177,7 @@ position: relative;
     width: 7%;
     height: 20%;
 }
-/*Estilo buscador dentro de la pantalla mapa*/
-.buscador{
-    padding-top: 10px;
-    padding-left: 10px;
-}
-/*Estilo barra de busqueda dentro de buscador*/
-.buscador input{
-    /* height: 20px;
-    padding-left: 10px; */
-}
+
 
 /*Estilo para la seleccion de rutas*/
 #ventanaRuta{
@@ -364,9 +385,10 @@ table {
 }
 
 
-/*Estilos para la ventana de rutas*/
+/*Estilos para la ventana de rutas EN WEEEEEEEEBBBBBBBBBBBBB*/
 
-/* Estilos específicos para #ventanaRuta */
+/* Estilos específicos para #ventanaRuta 
+ El de web
 #ventanaRuta {
     display: block;
     flex-direction: column;
@@ -381,9 +403,24 @@ table {
     
 }
 
+#ventanaRuta {
+    display: block;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin: -55px 0 0 75%;
+    
+}
+
+
 #ventanaRuta select {
     width: 100%;
-    padding: 1px 1px 1px 40px; /* Añadir espacio para la imagen */
+    padding: 1px 1px 1px 40px; 
     margin-bottom: 5px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -424,7 +461,7 @@ table {
     background-color: #a13641;
 }
 
-/* Ajustes para dispositivos móviles */
+ Ajustes para dispositivos móviles 
 @media (max-width: 600px) {
     #ventanaRuta {
         width: 90%;
@@ -435,4 +472,81 @@ table {
     #ventanaRuta button.toggle-button {
         font-size: 14px;
     }
+}
+
+*/
+
+#ventanaRuta {
+    display: flex; /* Cambiar block a flex para aprovechar flexbox */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin: 450px auto 0; /* Centrar el contenedor horizontalmente */
+    width: 80%; /* Ajustar el ancho a 80% por defecto */
+    max-width: 500px; /* Establecer un ancho máximo */
+}
+
+#ventanaRuta select {
+    width: 100%;
+    padding: 1px 1px 1px 40px; /* Añadir espacio para la imagen */
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    font-size: 16px;
+    color: #333;
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    background-size: 20px 20px;
+}
+
+#ventanaRuta #inicio {
+    background-image: url('../img/fin.png');
+}
+
+#ventanaRuta #fin {
+    background-image: url('../img/inicio.png');
+}
+
+#ventanaRuta select:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+#ventanaRuta button.toggle-button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #a13641;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#ventanaRuta button.toggle-button:hover {
+    background-color: #8b2e36;
+}
+
+/* Ajustes para dispositivos móviles */
+@media (max-width: 600px) {
+    #ventanaRuta {
+        width: 80%; /* Reducir el ancho en móviles */
+        padding: 15px;
+        margin: 450px auto 0; /* Reducir el margen superior en móviles */
+        
+    }
+
+    #ventanaRuta select, 
+    #ventanaRuta button.toggle-button {
+        font-size: 14px; /* Reducir el tamaño de fuente en móviles */
+    }
+
+    
 }

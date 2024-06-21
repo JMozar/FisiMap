@@ -75,6 +75,17 @@ $lista1=$_SESSION['LISTA1'];
         var pisoInicio = selectElementInicio.options[selectElementInicio.selectedIndex].getAttribute('data-piso');;
         var pisoFin = selectElementFin.options[selectElementFin.selectedIndex].getAttribute('data-piso');;
         
+        //acá falta cambiar por mi ubicacion real
+        if (campo1 == ''){
+            campo1='a';
+            pisoInicio='1';
+        }
+
+        if (campo1 == '999'){
+            campo1='R2';
+            pisoInicio='2';
+        }
+
         console.log('Campo1:', campo1);
         console.log('Campo2:', campo2);
 
@@ -166,17 +177,19 @@ $lista1=$_SESSION['LISTA1'];
     
     <div id=ventanaRuta>
     <select id="inicio" name="inicio" placeholder="Selección">
-            <option value="">Selección</option>
+            <option value="">Inicio</option>
+            <option value="">Mi ubicación</option>
 
             <?php
             foreach ($lista1 as $reg) {
         echo '<option value="' . $reg['codigo_area'] . '" data-piso="' . $reg['piso'] . '">' . $reg['piso'] .'-'. $reg['pabellon'] . '-' . $reg['nombre'] . '</option>';
     }
-    ?> 
+    ?>
+    <option value="999">Mi Ubicación</option> 
     </select>
     
     <select id="fin" name="fin" placeholder="Selección">
-            <option value="">Selección</option>
+            <option value="">Destino</option>
 
             <?php
             foreach ($lista1 as $reg) {
